@@ -61,6 +61,8 @@ public class Balance extends javax.swing.JFrame {
               Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","");
               St1 = Con.createStatement();
               Rs1 = St1.executeQuery(Query);
+           
+            //and then if else to ger the display of the old balance in account
               if(Rs1.next()){
                  OldBalance = Rs1.getInt(9);
                  BalLbl.setText("P"+OldBalance);
