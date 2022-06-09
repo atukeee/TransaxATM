@@ -40,9 +40,10 @@ public class Deposits extends javax.swing.JFrame {
     int OldBalance;
      
    private void GetBalance(){
-       
+       //To Select the Account Num for Account Table
         String Query = "select * from accounttbl where AccNum='"+MyAccNum+"'";
        try{
+           //Getting an access to database 
               Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","");
               St1 = Con.createStatement();
               Rs1 = St1.executeQuery(Query);
