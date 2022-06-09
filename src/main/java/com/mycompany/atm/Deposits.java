@@ -195,41 +195,49 @@ public class Deposits extends javax.swing.JFrame {
  
     }//GEN-LAST:event_DepositBtnActionPerformed
     
- 
+    //This is just a function for the deposit button
     private void DepositBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DepositBtnMouseClicked
+        //So we use a if else method which is in the part of if it will get the amount to deposit
         if(AmountTb.getText().isEmpty() || AmountTb.getText().equals(0)){
             JOptionPane.showMessageDialog(this,"Enter Valid Amount");
         } else {
+            //and here in else we use tr and catch method
             
-   
             try{
+                //Here in String Query it is use to access the database where the system need to update the balance and
+                //getting the account number
                 String Query = "Update accounttbl set Balance=? where AccNum=? ";
                 Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","");
                 PreparedStatement pst = Con.prepareStatement(Query);
                 pst.setInt(1, OldBalance+Integer.valueOf(AmountTb.getText()));
                 pst.setInt(2, MyAccNum);
                 
+                //We also use if else here inside try to display a notification where if the user enter amount
+                //1 peso or more than that it will display Balance Updated
                 if(pst.executeUpdate() == 1){
                     JOptionPane.showMessageDialog(this, "Balance Updated");
           
                 } 
-                
+                //The in else is if ther user don't have input nothing it will display missing information.
                 else{
                     JOptionPane.showMessageDialog(this, "Missing Information");
                 }
             }
+            // and then in catch the system will automatically display error message if something have wrong in database or in the system
             catch (Exception e){
                  JOptionPane.showMessageDialog(this, e);
             }
         }
     }//GEN-LAST:event_DepositBtnMouseClicked
 
+    //This one is a function for back so when the user click it will go back to Main Menu
     private void jLabel38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseClicked
         // TODO add your handling code here:
         new MainMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel38MouseClicked
-
+    
+    //Then for the exit icon, the system will automatically exit because of the  System.exit(1);
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
         System.exit(1);
