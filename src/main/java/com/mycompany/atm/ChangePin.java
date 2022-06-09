@@ -4,6 +4,7 @@
  */
 package com.mycompany.atm;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -233,14 +234,21 @@ public class ChangePin extends javax.swing.JFrame {
     Statement St = null,St1=null;
     
     private void ChangeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChangeBtnMouseClicked
-            // TODO add your handling code here:
+            // Here is to get the data from the text field and 
+            // using if else method we create a condition where the user need to enter the pin and to change it
             if (NewPin.getText().isEmpty() || NewPin1.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Enter and Confirm the PIN");
+            // Here in this condition the user needs to check there entered pin if they entered it correctly
+            // after that, if the two text field are not same it will show the message of "PIN 1 and PIN 2 are not equal"
             } else if(!NewPin.getText().equals(NewPin1.getText())){
                 JOptionPane.showMessageDialog(this,"PIN 1 and PIN 2 are not equal");
             } else {
-                 
+                
+                
+            // To Update the table of PIN and Account Number     
             String Query = "Update accounttbl set PIN=? where AccNum=? ";
+                
+            //we also use try and catch for the database
             try{
                 
                 Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","");
@@ -248,6 +256,8 @@ public class ChangePin extends javax.swing.JFrame {
                 pst.setInt(1, Integer.valueOf(NewPin.getText()));
                 pst.setInt(2, MyAccNum);
                 
+               //and if else method again to have a notification of PIN update
+                // or else if the user did not select anything it will show  "Missing Information"
                 if (pst.executeUpdate() == 1){
                     JOptionPane.showMessageDialog(this, "PIN Updated");
                 } 
@@ -278,7 +288,7 @@ public class ChangePin extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
+        // Here is to exit the system
         System.exit(1);
     }//GEN-LAST:event_jLabel5MouseClicked
 
