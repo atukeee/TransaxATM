@@ -39,19 +39,27 @@ public class Withdraw extends javax.swing.JFrame {
      
    private void GetBalance(){
        
+       //In Sting Query it is To Select the Account Num for Account Table and just to get the balance
         String Query = "select * from accounttbl where AccNum='"+MyAccNum+"'";
        try{
+               //It also have a con to connect in database
               Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","");
               St1 = Con.createStatement();
               Rs1 = St1.executeQuery(Query);
+           
+           
               if(Rs1.next()){
+                  //So After connecting it to the database, it will get the account balance
                  OldBalance = Rs1.getInt(9);
+                  
+                 //and automatically display on the window
                  BalLbl.setText(""+OldBalance);
               }
               else{
                  
               }
         }
+       //Here it also have an automatically notification error if the system is malfunctioning
         catch (Exception e){
             JOptionPane.showMessageDialog(this, e);
         }
@@ -234,42 +242,54 @@ public class Withdraw extends javax.swing.JFrame {
     }//GEN-LAST:event_WithdrawBtnActionPerformed
 
     private void WithdrawBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_WithdrawBtnMouseClicked
-        // TODO add your handling code here:
+        //So Here is the function when the user click the withdraw button 
+        // It use an if else if conditon 
+        //Where her in if it will getting the input on the text field 
+        // Which is, if the user enter a text or a number it will show that they need to enter a valid amount or numbers
          if(AmountTb.getText().isEmpty() || AmountTb.getText().equals(0)){
             JOptionPane.showMessageDialog(this,"Enter Valid Amount");
-        } else if(OldBalance < Integer.valueOf(AmountTb.getText())){
+            
+        } 
+        //Then If the user display above to his balance it will display No Enough Balance
+        else if(OldBalance < Integer.valueOf(AmountTb.getText())){
              JOptionPane.showMessageDialog(this,"No Enough Balance");
         }
          else{
          
-            
+            //We also have an access to database her
             try{
                  String Query = "Update accounttbl set Balance=? where AccNum=? ";
                 Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","");
                 PreparedStatement pst = Con.prepareStatement(Query);
+                //and we need to subtract the old balance from the user input on the text field 
                 pst.setInt(1, OldBalance-Integer.valueOf(AmountTb.getText()));
                 pst.setInt(2, MyAccNum);
                 
+                //And then if the user inout a number more than 1 it will show balance update
                 if(pst.executeUpdate() == 1){
                     JOptionPane.showMessageDialog(this, "Balance Updated");
                 } 
                 
+                //Then if they didn't input anything it will display missing information
                 else{
                     JOptionPane.showMessageDialog(this, "Missing Information");
                 }
             }
+            //Here in catch it will automatically show again an error message
             catch (Exception e){
                  JOptionPane.showMessageDialog(this, e);
             }
         }
     }//GEN-LAST:event_WithdrawBtnMouseClicked
-
+   
+     //Then on the Logout button it is with cicck function and it will go to login form again
     private void jLabel38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseClicked
         // TODO add your handling code here:
          new LOGIN().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel38MouseClicked
 
+     //Then for the exit icon, the system will automatically exit because of the  System.exit(1);
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
         System.exit(1);
