@@ -4,7 +4,7 @@
  */
 package com.mycompany.atm;
 
-
+//Same sa kanina which is yung imports of packages
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -282,7 +282,7 @@ public class ChangePin extends javax.swing.JFrame {
     }//GEN-LAST:event_NewPin1ActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        // TODO add your handling code here:
+        // To go back to the main menu
          new MainMenu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
